@@ -110,6 +110,9 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
+    onkcop (0.53.0.3)
+      rubocop (>= 0.53.0)
+      rubocop-rspec (>= 1.24.0)
     orm_adapter (0.5.0)
     parallel (1.19.0)
     parser (2.6.5.0)
@@ -238,6 +241,7 @@ DEPENDENCIES
   devise_token_auth
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4, < 0.6.0)
+  onkcop
   pry-byebug
   pry-doc
   pry-rails
