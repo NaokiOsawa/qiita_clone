@@ -50,6 +50,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-doc'
   gem "onkcop", require: false
+  gem 'rubocop-performance'
 end
 
 group :development do
