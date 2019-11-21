@@ -110,6 +110,9 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
+    onkcop (0.53.0.3)
+      rubocop (>= 0.53.0)
+      rubocop-rspec (>= 1.24.0)
     orm_adapter (0.5.0)
     parallel (1.19.0)
     parser (2.6.5.0)
@@ -170,6 +173,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.5.1)
+      rubocop (>= 0.71.0)
     rubocop-rails (2.3.2)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
@@ -238,11 +243,13 @@ DEPENDENCIES
   devise_token_auth
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4, < 0.6.0)
+  onkcop
   pry-byebug
   pry-doc
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.3)
+  rubocop-performance
   rubocop-rails
   rubocop-rspec
   sass-rails (~> 5.0)
