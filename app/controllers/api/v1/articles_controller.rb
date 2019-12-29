@@ -8,4 +8,9 @@ class Api::V1::ArticlesController < ApplicationController
     article = Article.find(params[:id])
     render json: article
   end
+
+  def create
+    binding.pry
+  end
+
 end
