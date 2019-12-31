@@ -1,4 +1,4 @@
-class Api::V1::ArticlesController < ApplicationController
+class Api::V1::ArticlesController < Api::V1::ApiController
   def index
     articles = Article.all
     render json: articles
@@ -10,7 +10,13 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def create
-    binding.pry
+    article = current_user.articles.create!(article_params)
+    render json: article
   end
+
+  private
+    def article_params
+      params.require(:article).permit(:title,:body)
+    end
 
 end
