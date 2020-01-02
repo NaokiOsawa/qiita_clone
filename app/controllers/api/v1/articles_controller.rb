@@ -16,7 +16,6 @@ class Api::V1::ArticlesController < Api::V1::ApiController
 
   def update
     article = current_user.articles.find(params[:id])
-    binding.pry
     article.update!(article_params)
     render json: article
   end
