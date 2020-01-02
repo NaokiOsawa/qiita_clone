@@ -74,9 +74,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     it "記事の更新ができる" do
-      expect { subject }.to change { Article.find(article.id).title }.from(article.title).to(params[:article][:title]) &
-                            change { Article.find(article.id).body }.from(article.body).to(params[:article][:body]) &
-                            not_change { Article.find(article.id).created_at }
+      expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
+                            change { article.reload.body }.from(article.body).to(params[:article][:body]) &
+                            not_change { article.reload.created_at }
       expect(response).to have_http_status(:ok)
     end
   end
