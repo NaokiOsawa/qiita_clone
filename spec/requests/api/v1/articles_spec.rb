@@ -47,4 +47,37 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
+
+  describe "POST /api/v1/articles" do
+    subject { post(api_v1_articles_path, params: params) }
+
+    let(:params) { { article: attributes_for(:article) } }
+    let(:current_user) { create(:user) }
+    before do
+      allow_any_instance_of(Api::V1::ApiController).to receive(:current_user).and_return(current_user)
+    end
+
+    it "記事が作成できる" do
+      expect { subject }.to change { Article.count }.by(1)
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe "PATCH /api/v1/articles/:id" do
+    subject { patch(api_v1_article_path(article.id), params: params) }
+
+    let(:params) { { article: attributes_for(:article) } }
+    let(:article) { create(:article, user: current_user) }
+    let(:current_user) { create(:user) }
+    before do
+      allow_any_instance_of(Api::V1::ApiController).to receive(:current_user).and_return(current_user)
+    end
+
+    it "記事の更新ができる" do
+      expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
+                            change { article.reload.body }.from(article.body).to(params[:article][:body]) &
+                            not_change { article.reload.created_at }
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end
