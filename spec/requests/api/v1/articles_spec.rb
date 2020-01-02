@@ -92,7 +92,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     it "記事の削除ができる" do
       expect { subject }.to change { Article.count }.by(-1)
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
