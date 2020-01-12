@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get "homes/index"
   root "homes#index"
+
+  # reload 対策
+  get "sign_up", to: "homes#index"
 
   namespace :api do
     namespace :v1 do
