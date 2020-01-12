@@ -9,7 +9,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   validates :account, presence: true, uniqueness: true
-  validates :name, presence: true
+  #validates :name, presence: true
 
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
