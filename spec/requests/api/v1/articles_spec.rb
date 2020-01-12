@@ -33,6 +33,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
         expect(res["id"]).to eq article.id
         expect(res["body"]).to eq article.body
         expect(res["title"]).to eq article.title
+        expect(res["updated_at"]).to be_present
         expect(res["user"]["id"]).to eq article.user.id
         expect(res["user"]["account"]).to eq article.user.account
         expect(res["user"]["name"]).to eq article.user.name
