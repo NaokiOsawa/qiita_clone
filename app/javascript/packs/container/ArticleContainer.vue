@@ -17,6 +17,7 @@
 import axios from "axios";
 import { Vue, Component } from "vue-property-decorator";
 import TimeAgo from "vue2-timeago";
+
 @Component({
   components: {
     TimeAgo
@@ -24,9 +25,11 @@ import TimeAgo from "vue2-timeago";
 })
 export default class ArticleContainer extends Vue {
   article: any = "";
+
   async mounted(): Promise<void> {
     await this.fetchArticle(this.$route.params.id);
   }
+
   async fetchArticle(id: string): Promise<void> {
     await axios
       .get(`/api/v1/articles/${id}`)
