@@ -17,7 +17,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     end
 
     context "ユーザー登録に必要な情報が正しく送信されない時(nameがnil)" do
-      let(:params) { attributes_for(:user,name:nil) }
+      let(:params) { attributes_for(:user, name: nil) }
 
       it "ユーザー登録されない" do
         expect { subject }.to change { User.count }.by(0)
@@ -28,7 +28,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     end
 
     context "ユーザー登録に必要な情報が正しく送信されない時(accountがnil)" do
-      let(:params) { attributes_for(:user,account:nil) }
+      let(:params) { attributes_for(:user, account: nil) }
 
       it "ユーザー登録されない" do
         expect { subject }.to change { User.count }.by(0)
@@ -39,7 +39,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     end
 
     context "ユーザー登録に必要な情報が正しく送信されない時(emailがnil)" do
-      let(:params) { attributes_for(:user,email:nil) }
+      let(:params) { attributes_for(:user, email: nil) }
 
       it "ユーザー登録されない" do
         expect { subject }.to change { User.count }.by(0)
@@ -50,7 +50,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     end
 
     context "ユーザー登録に必要な情報が正しく送信されない時(passwordがnil)" do
-      let(:params) { attributes_for(:user,password:nil) }
+      let(:params) { attributes_for(:user, password: nil) }
 
       it "ユーザー登録されない" do
         expect { subject }.to change { User.count }.by(0)
@@ -59,7 +59,6 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
         expect(response.headers["client"]).to be_blank
       end
     end
-
   end
 
   describe "POST /api/v1/auth/sign_in" do
