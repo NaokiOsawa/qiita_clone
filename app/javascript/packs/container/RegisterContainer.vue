@@ -1,12 +1,12 @@
 <template>
   <form>
     <v-text-field
-      v-model="name"
+      v-model="account"
       v-validate="'required|max:10'"
       :counter="10"
-      :error-messages="errors.collect('name')"
-      label="ユーザー名"
-      data-vv-name="name"
+      :error-messages="errors.collect('account')"
+      label="アカウント名"
+      data-vv-name="account"
       required
     ></v-text-field>
     <v-text-field
@@ -47,7 +47,7 @@ export default class RegisterContainer extends Vue {
     validator: "new";
   };
 
-  name: string = "";
+  account: string = "";
   email: string = "";
   show: boolean = false;
   password: string = "";
@@ -57,7 +57,7 @@ export default class RegisterContainer extends Vue {
     };
     custom: {
       name: {
-        required: () => "Name can not be empty";
+        required: () => "Account can not be empty";
         max: "The name field may not be greater than 10 characters";
       };
     };
@@ -71,7 +71,7 @@ export default class RegisterContainer extends Vue {
     // this.$validator.validateAll();
 
     const params = {
-      name: this.name,
+      account: this.account,
       email: this.email,
       password: this.password
     };
