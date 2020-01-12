@@ -1,9 +1,66 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
-  describe "GET /api/v1/auth/registrations" do
-    it "works! (now write some real specs)" do
-      get api_v1_auth_registrations_index_path
+  describe "POST /api/v1/auth" do
+    subject { post(api_v1_user_registration_path, params: params) }
+    let(:params) { attributes_for(:user) }
+
+    it "ユーザー登録できる" do
+      subject
+      expect(response.headers["uid"]).to be_present
+      expect(response.headers["access-token"]).to be_present
+      expect(response.headers["client"]).to be_present
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe "POST /api/v1/auth/sign_in" do
+    subject { post(api_v1_user_session_path, params: params) }
+    context "登録されているユーザーの必要な情報が正しく送信された時" do
+      let(:current_user) { create(:user) }
+      let(:params) { {email:current_user.email, password:current_user.password} }
+      it "ログインできる" do
+        subject
+        expect(response.headers["uid"]).to be_present
+        expect(response.headers["access-token"]).to be_present
+        expect(response.headers["client"]).to be_present
+        expect(response).to have_http_status(200)
+      end
+    end
+    context "登録されていないユーザーの情報が送信された時(メールアドレス誤)" do
+      let(:current_user) { create(:user) }
+      let(:params) { {email:"xxxx", password:current_user.password} }
+      it "ログインできない" do
+        subject
+        expect(response.headers["uid"]).to be_blank
+        expect(response.headers["access-token"]).to be_blank
+        expect(response.headers["client"]).to be_blank
+        expect(response).to have_http_status(401)
+      end
+    end
+    context "登録されていないユーザーの情報が送信された時(パスワード誤)" do
+      let(:current_user) { create(:user) }
+      let(:params) { {email:current_user.email, password:"xxxx"} }
+      it "ログインできない" do
+        subject
+        expect(response.headers["uid"]).to be_blank
+        expect(response.headers["access-token"]).to be_blank
+        expect(response.headers["client"]).to be_blank
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
+  describe "DELETE /api/v1/auth/sign_out" do
+    subject { delete(destroy_api_v1_user_session_path, headers: headers) }
+    let(:current_user) { create(:user) }
+    let(:headers) { current_user.create_new_auth_token }
+
+    it "ログアウトできる" do
+      subject
+      expect(response.headers["uid"]).to be_blank
+      expect(response.headers["access-token"]).to be_blank
+      expect(response.headers["client"]).to be_blank
       expect(response).to have_http_status(200)
     end
   end
