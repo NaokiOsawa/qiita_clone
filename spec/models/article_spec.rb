@@ -10,7 +10,7 @@ RSpec.describe Article, type: :model do
     end
 
     context "body,title,下書きが設定されている場合" do
-      let(:article) { build(:article, status: 0) }
+      let(:article) { build(:article, status: "draft") }
       it "下書き設定した記事が作られる" do
         expect(article).to be_valid
         expect(article.status).to eq "draft"
@@ -18,7 +18,7 @@ RSpec.describe Article, type: :model do
     end
 
     context "body,title,公開が設定されている場合" do
-      let(:article) { build(:article, status: 1) }
+      let(:article) { build(:article, status: "published") }
       it "公開設定した記事が作られる" do
         expect(article).to be_valid
         expect(article.status).to eq "published"
