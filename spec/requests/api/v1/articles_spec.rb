@@ -11,6 +11,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     it "記事一覧が取得できる" do
       subject
       res = JSON.parse(response.body)
+      binding.pry
       expect(res.length).to eq 3
       expect(res[0].keys).to eq ["id", "body", "title", "user"]
       expect(res[0]["user"].keys).to eq ["id", "account", "name"]
