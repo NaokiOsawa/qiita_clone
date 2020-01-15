@@ -47,18 +47,42 @@ RSpec.describe "Api::V1::Articles", type: :request do
         expect { subject }.to raise_error ActiveRecord::RecordNotFound
       end
     end
+
+    context "記事が下書きの場合" do
+      let(:article) { create(:article, status:"draft") }
+      let(:article_id) { article.id }
+
+      it "記事が見つからない" do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 
   describe "POST /api/v1/articles" do
     subject { post(api_v1_articles_path, params: params, headers: headers) }
-
-    let(:params) { { article: attributes_for(:article) } }
     let(:current_user) { create(:user) }
     let(:headers) { current_user.create_new_auth_token }
 
-    it "記事が作成できる" do
-      expect { subject }.to change { Article.count }.by(1)
-      expect(response).to have_http_status(:ok)
+    context "公開設定の場合" do
+      let(:params) { { article: attributes_for(:article, status:"published") } }
+
+      it "公開設定の記事が作成できる" do
+        expect { subject }.to change { Article.count }.by(1)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq "published"
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "下書き設定の場合" do
+      let(:params) { { article: attributes_for(:article, status:"draft") } }
+
+      it "下書き設定の記事が作成できる" do
+        expect { subject }.to change { Article.count }.by(1)
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq "draft"
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 
