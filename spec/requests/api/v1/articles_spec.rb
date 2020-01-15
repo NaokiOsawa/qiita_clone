@@ -5,7 +5,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_articles_path) }
 
     before do
-      create_list(:article, 3,status:"published")
+      create_list(:article, 3, status: "published")
     end
 
     it "公開設定にしている記事一覧が取得できる" do
@@ -22,7 +22,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_article_path(article_id)) }
 
     context "指定したidの記事が存在する場合" do
-      let(:article) { create(:article, status:"published") }
+      let(:article) { create(:article, status: "published") }
       let(:article_id) { article.id }
 
       it "記事の値が取得できる" do
@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     context "記事が下書きの場合" do
-      let(:article) { create(:article, status:"draft") }
+      let(:article) { create(:article, status: "draft") }
       let(:article_id) { article.id }
 
       it "記事が見つからない" do
@@ -60,11 +60,12 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
   describe "POST /api/v1/articles" do
     subject { post(api_v1_articles_path, params: params, headers: headers) }
+
     let(:current_user) { create(:user) }
     let(:headers) { current_user.create_new_auth_token }
 
     context "公開設定の場合" do
-      let(:params) { { article: attributes_for(:article, status:"published") } }
+      let(:params) { { article: attributes_for(:article, status: "published") } }
 
       it "公開設定の記事が作成できる" do
         expect { subject }.to change { Article.count }.by(1)
@@ -75,7 +76,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     context "下書き設定の場合" do
-      let(:params) { { article: attributes_for(:article, status:"draft") } }
+      let(:params) { { article: attributes_for(:article, status: "draft") } }
 
       it "下書き設定の記事が作成できる" do
         expect { subject }.to change { Article.count }.by(1)
