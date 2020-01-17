@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         registrations: "api/v1/auth/registrations",
       }
       resources :articles
+      namespace :articles do
+        resources :draft, only: [:index, :show]
+      end
     end
   end
 end
