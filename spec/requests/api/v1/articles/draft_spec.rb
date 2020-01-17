@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Articles::Draft", type: :request do
   describe "GET /api/v1/articles/draft" do
@@ -6,11 +6,11 @@ RSpec.describe "Api::V1::Articles::Draft", type: :request do
 
     let(:current_user) { create(:user) }
     let(:headers) { current_user.create_new_auth_token }
-    let!(:article1){ create(:article, user: current_user, status:"draft")}
-    let!(:article2){ create(:article, user: current_user, status:"draft")}
-    let!(:article3){ create(:article, user: current_user, status:"published")}
-    let!(:article4){ create(:article, status:"draft")}
-    let!(:article5){ create(:article, status:"published")}
+    let!(:article1) { create(:article, user: current_user, status: "draft") }
+    let!(:article2) { create(:article, user: current_user, status: "draft") }
+    let!(:article3) { create(:article, user: current_user, status: "published") }
+    let!(:article4) { create(:article, status: "draft") }
+    let!(:article5) { create(:article, status: "published") }
 
     it "ログインユーザーの下書き設定にしている記事一覧が取得できる" do
       subject
@@ -77,7 +77,5 @@ RSpec.describe "Api::V1::Articles::Draft", type: :request do
         expect { subject }.to raise_error ActiveRecord::RecordNotFound
       end
     end
-
   end
-
 end
